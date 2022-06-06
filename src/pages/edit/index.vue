@@ -225,6 +225,7 @@ export default {
     }
 
     const drop_handler = (ev) => {
+      console.log('编辑区触发drop')
       ev.preventDefault();
       const data = ev.dataTransfer.getData("text/plain");
       const {layerY} = ev;
@@ -254,7 +255,9 @@ export default {
       message.info('玩命开发中，敬请期待！');
     }
 
-
+  const onClose = (flag)=>{
+      state.visible = flag
+  }
     return {
       ...toRefs(editorState),
       ...toRefs(state),
@@ -268,6 +271,7 @@ export default {
       onDrag,
       setRelease,
       setPreview,
+      onClose
     }
   },
   components: {

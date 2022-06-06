@@ -1,4 +1,4 @@
-import {cacheController, postMsgToChild, mergeConfig} from "@/common/utils";
+import { cacheController, postMsgToChild, mergeConfig } from "@/common/utils";
 const CONFIG = {
   pageConfig: {
     userSelectComponents: [],
@@ -28,7 +28,7 @@ const CONFIG = {
 const state = JSON.parse(JSON.stringify(CONFIG));
 
 const actions = {
-  returnConfig({commit, state}, {
+  returnConfig({ commit, state }, {
     targetConfig,
     pageData,
     releaseStatus,
@@ -43,7 +43,7 @@ const actions = {
     if (
       !releaseStatus &&
       (JSON.stringify(targetConfig.userSelectComponents) !== JSON.stringify(state.pageConfig.userSelectComponents) ||
-      JSON.stringify(targetConfig.page) !== JSON.stringify(state.pageConfig.page))
+        JSON.stringify(targetConfig.page) !== JSON.stringify(state.pageConfig.page))
     ) {
       commit('updateUiConfig', {
         releaseStatus: {
@@ -54,7 +54,7 @@ const actions = {
       });
     }
     // 页面级别的配置，比如 title 之类的
-    targetConfig.page = targetConfig.page || {schema: {}, props: {}};
+    targetConfig.page = targetConfig.page || { schema: {}, props: {} };
     // merge 页面配置信息
     commit('updatePageConfig', {
       ...mergeConfig(state.defaultConfig, targetConfig),
@@ -104,12 +104,12 @@ const actions = {
       currentIndex
     });
   },
-  reset({dispatch}, config) {
+  reset({ dispatch }, config) {
     dispatch('returnConfig', {
       targetConfig: config,
       save: false
     });
-    postMsgToChild({type: 'reset', data: config});
+    postMsgToChild({ type: 'reset', data: config });
   }
 }
 
@@ -125,16 +125,16 @@ const mutations = {
     state.editConfig = {
       componentConfig: {},
       currentIndex: null,
-        currentComponent: null,
+      currentComponent: null,
     };
 
     state.uiConfig = {
       commonComponents: [], // 远程组件列表
-        showEdit: true,
-        releaseStatus: '',
-        showRelease: false,
-        pageData: {}, // 页面数据
-        dragStart: false,
+      showEdit: true,
+      releaseStatus: '',
+      showRelease: false,
+      pageData: {}, // 页面数据
+      dragStart: false,
     }
     cacheController.init();
   },
@@ -171,11 +171,11 @@ const mutations = {
   setRelease(state, payload) {
     state.uiConfig.showRelease = payload;
   },
-  addComponent(state, {data, index}) {
-    postMsgToChild({type: 'addComponent', data: JSON.parse(JSON.stringify({data, index}))});
+  addComponent(state, { data, index }) {
+    postMsgToChild({ type: 'addComponent', data: JSON.parse(JSON.stringify({ data, index })) });
   },
   changeProps(state, payload) {
-    postMsgToChild({type: 'changeProps', data: payload});
+    postMsgToChild({ type: 'changeProps', data: payload });
   },
   setEdit(state, showEdit) {
     state.uiConfig.showEdit = showEdit;
@@ -183,7 +183,8 @@ const mutations = {
   setReleaseInfo(state, info) {
     state.uiConfig.releaseStatus = info;
   },
-  setDragStart(state, {ev, v, data}) {
+  setDragStart(state, { ev, v, data }) {
+    console.log('setDragStart:', { ev, v, data })
     state.uiConfig.dragStart = v;
     if (data) {
       ev.dataTransfer.setData("text/plain", JSON.stringify(data));

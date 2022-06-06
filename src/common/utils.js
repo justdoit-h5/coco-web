@@ -17,6 +17,7 @@ export function debounce(fn, delay, scope) {
 }
 
 export const postMsgToChild = (msg) => {
+  console.log('postMsgToChild-向iframe传递消息:', msg)
   window.frames[0] && window.frames[0].postMessage(msg, '*');
 }
 
@@ -48,7 +49,7 @@ export const cacheController = {
     }
 
     if (this.currentCache.value) {
-      let item =  {
+      let item = {
         value: config,
         next: null,
         pre: null

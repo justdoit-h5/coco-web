@@ -93,10 +93,12 @@ export default {
     });
 
     const initPage = (config) => {
+      console.log('initPage:',config)
       state.pageInfo = config;
       state.createDialog = true;
     }
     const router = useRouter();
+    // 创建 project
     const createPage = () => {
       validate().then(async () => {
         // message.info('由于权限管控暂未完成，暂不支持新增页面，请前往工作台体验先有页面！');
